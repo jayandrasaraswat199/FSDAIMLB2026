@@ -1,10 +1,10 @@
 const http = require("http");
 const sum = require("./fetchData.js");
-const writeData=require('./usefsmodule.js');
+const {writeData,readData,deleteFile,dataCopy,fileReadAsync}=require('./usefsmodule.js');
 const PORT = 4007;
 const server = http.createServer( async(req, res) => {
 
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE,PUT');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -28,16 +28,48 @@ const server = http.createServer( async(req, res) => {
     res.end(JSON.stringify({ msg: sumData }));
   }
 
-
-  if (req.url == "/data" && req.method == "POST") {
+  if (req.url == "/readData" && req.method == "GET") {
     res.setHeader("content-type", "application/json");
-    res.end(JSON.stringify({ msg: "This is JSON POST data" }));
+    const sumData = readData();
+    res.end(JSON.stringify({ msg: sumData }));
+  }
+
+  if (req.url == "/deleteFile" && req.method == "GET") {
+    res.setHeader("content-type", "application/json");
+    const sumData = deleteFile();
+    res.end(JSON.stringify({ msg: sumData }));
+  }
+
+  if (req.url == "/dataCopy" && req.method == "GET") {
+    res.setHeader("content-type", "application/json");
+    const sumData = dataCopy();
+    res.end(JSON.stringify({ msg: sumData }));
+  }
+
+  if (req.url == "/fileReadAsync" && req.method == "GET") {
+    res.setHeader("content-type", "application/json");
+    const sumData = await fileReadAsync();
+    res.end(JSON.stringify({ msg: sumData }));
   }
 
   if (req.url == "/data" && req.method == "DELETE") {
     res.setHeader("content-type", "application/json");
     res.end(JSON.stringify({ msg: "This is JSON delete data" }));
   }
+  if (req.url == "/register" && req.method == "POST") {
+    let arr=[];
+    let body="";
+    req.on('data',chunk=>{
+      body +=chunk
+    })
+    req.on('end',()=>{
+      const {name, email,password} = JSON.parse(body);
+      console.log(name)
+    })
+    res.setHeader("content-type", "application/json");
+    res.end(JSON.stringify({ msg:"Hii.....Hiting /register API" }));
+  }
+
   
 });
 
