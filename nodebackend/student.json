@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "name": "Jayandra saraswat",
+    "email": "jayandrasaraswat@gmail.com",
+    "password": "123456"
+  },
+  {
+    "name": "manavendra yadav",
+    "email": "manavendrayadav@gmail.com",
+    "password": "123456"
+  },
+  {
+    "name": "divy",
+    "email": "divy@gmail.com",
+    "password": "12341234"
+  },
+  {
+    "name": "moinak",
+    "email": "moinak@gmail.com",
+    "password": "12344321"
+  }
+]
